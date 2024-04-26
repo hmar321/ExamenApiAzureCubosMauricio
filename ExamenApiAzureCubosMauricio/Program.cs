@@ -36,8 +36,9 @@ builder.Services.AddOpenApiDocument(document =>
 {
     document.Title = "ApiOAuth2 Examen Mauricio";
     document.Description = "Api Examen Cubos.  Proyecto Cubos";
+    document.Version = "v1";
     document.AddSecurity("JWT", Enumerable.Empty<string>(),
-        new NSwag.OpenApiSecurityScheme
+        new OpenApiSecurityScheme
         {
             Type = OpenApiSecuritySchemeType.ApiKey,
             Name = "Authorization",
@@ -60,9 +61,8 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Api OAuth2 Examen Mauricio");
     options.RoutePrefix = "";
 });
-
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
